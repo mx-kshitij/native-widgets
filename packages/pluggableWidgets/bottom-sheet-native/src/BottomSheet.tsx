@@ -12,7 +12,13 @@ export function BottomSheet(props: BottomSheetProps<BottomSheetStyle>): ReactEle
 
     if (props.type === "modal" && props.modalRendering === "custom") {
         return (
-            <CustomModalSheet triggerAttribute={props.triggerAttribute} content={props.largeContent} styles={styles} />
+            <CustomModalSheet
+                triggerAttribute={props.triggerAttribute}
+                content={props.largeContent} styles={styles}
+                onOpen={() => executeAction(props.onOpen)}
+                onClose={() => executeAction(props.onClose)}
+                enableSwipeDown={props.enableSwipeDown}
+            />
         );
     }
     if (props.type === "modal" && props.modalRendering === "basic") {

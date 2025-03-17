@@ -2,12 +2,15 @@ import { createElement, ReactElement, ReactNode, useCallback, useEffect, useStat
 import { InteractionManager, LayoutChangeEvent, SafeAreaView, StyleSheet, View } from "react-native";
 import Modal, { OnSwipeCompleteParams } from "react-native-modal";
 import { EditableValue, ValueStatus } from "mendix";
-import { BottomSheetStyle, defaultPaddings } from "../ui/Styles";
+import { BottomSheetStyle, defaultPaddings, handleBar } from "../ui/Styles";
 
 interface CustomModalSheetProps {
     triggerAttribute?: EditableValue<boolean>;
     content?: ReactNode;
     styles: BottomSheetStyle;
+    onOpen?: () => void;
+    onClose?: () => void;
+    enableSwipeDown: boolean;
 }
 
 export const CustomModalSheet = (props: CustomModalSheetProps): ReactElement => {
@@ -28,22 +31,28 @@ export const CustomModalSheet = (props: CustomModalSheetProps): ReactElement => 
         if (props.triggerAttribute && props.triggerAttribute.status === ValueStatus.Available) {
             props.triggerAttribute.setValue(true);
         }
+        props.onOpen?.();
     }, [props.triggerAttribute]);
 
     const onCloseHandler = useCallback(() => {
         if (props.triggerAttribute && props.triggerAttribute.status === ValueStatus.Available) {
             props.triggerAttribute.setValue(false);
         }
+        props.onClose?.();
     }, [props.triggerAttribute]);
 
     const onSwipeDown = useCallback(
         (params: OnSwipeCompleteParams): void => {
-            if (params.swipingDirection === "down") {
+            if (props.enableSwipeDown && params.swipingDirection === "down") {
                 onCloseHandler();
             }
         },
-        [props.triggerAttribute]
+        [props.triggerAttribute, props.enableSwipeDown]
     );
+
+    const preventBubbling = (event: any): void => {
+        event.stopPropagation();
+    };
 
     const onLayoutFullscreenHandler = (event: LayoutChangeEvent): void => {
         const height = event.nativeEvent.layout.height;
@@ -70,6 +79,10 @@ export const CustomModalSheet = (props: CustomModalSheetProps): ReactElement => 
             onBackdropPress={onCloseHandler}
             onModalShow={onOpenHandler}
             onSwipeComplete={onSwipeDown}
+            swipeDirection={props.enableSwipeDown ? ["down"] : []}
+            swipeThreshold={150}
+            propagateSwipe={props.enableSwipeDown}
+            useNativeDriverForBackdrop={true}
             style={props.styles.modal}
         >
             <View
@@ -78,8 +91,10 @@ export const CustomModalSheet = (props: CustomModalSheetProps): ReactElement => 
                     defaultPaddings,
                     { maxHeight: height - Number(defaultPaddings.paddingBottom) }
                 ]}
+                onTouchEnd={preventBubbling}
                 pointerEvents="box-none"
             >
+                {props.enableSwipeDown && <View style={handleBar} />}
                 {props.content}
             </View>
         </Modal>

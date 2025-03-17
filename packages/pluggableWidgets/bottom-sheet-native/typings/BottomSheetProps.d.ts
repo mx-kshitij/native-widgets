@@ -36,6 +36,7 @@ export interface BottomSheetProps<Style> {
     largeContent?: ReactNode;
     showFullscreenContent: boolean;
     fullscreenContent?: ReactNode;
+    enableSwipeDown: boolean;
     onOpen?: ActionValue;
     onClose?: ActionValue;
 }
@@ -59,6 +60,7 @@ export interface BottomSheetPreviewProps {
     largeContent: { widgetCount: number; renderer: ComponentType<{ children: ReactNode; caption?: string }> };
     showFullscreenContent: boolean;
     fullscreenContent: { widgetCount: number; renderer: ComponentType<{ children: ReactNode; caption?: string }> };
+    enableSwipeDown: boolean;
     onOpen: {} | null;
     onClose: {} | null;
 }

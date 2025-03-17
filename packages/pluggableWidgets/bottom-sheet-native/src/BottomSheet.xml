@@ -77,6 +77,10 @@
                     <caption>Visible on drag to top of screen</caption>
                     <description />
                 </property>
+                <property key="enableSwipeDown" type="boolean" defaultValue="true">
+                    <caption>Enable swipe down</caption>
+                    <description />
+                </property>
                 <property key="onOpen" type="action" required="false">
                     <caption>On open</caption>
                     <description />

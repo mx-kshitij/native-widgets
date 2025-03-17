@@ -2,7 +2,6 @@ import { StructurePreviewProps, topBar, getColors } from "@mendix/piw-utils-inte
 import {
     changePropertyIn,
     hidePropertiesIn,
-    hidePropertyIn,
     Problem,
     Properties
 } from "@mendix/pluggable-widgets-tools";
@@ -73,7 +72,7 @@ export function getPreview(values: BottomSheetPreviewProps, isDarkMode: boolean)
 export const getProperties = (values: any, defaultProperties: Properties): Properties => {
     if (values.type === "modal") {
         if (values.modalRendering === "basic") {
-            hidePropertiesIn(defaultProperties, values, ["smallContent", "largeContent", "fullscreenContent"]);
+            hidePropertiesIn(defaultProperties, values, ["smallContent", "largeContent", "fullscreenContent", "enableSwipeDown"]);
         } else {
             hidePropertiesIn(defaultProperties, values, [
                 "smallContent",
@@ -83,16 +82,18 @@ export const getProperties = (values: any, defaultProperties: Properties): Prope
             ]);
             changePropertyIn(defaultProperties, values, x => (x.caption = "Content"), "largeContent");
         }
-        hidePropertiesIn(defaultProperties, values, ["showFullscreenContent", "onOpen", "onClose"]);
+        // hidePropertiesIn(defaultProperties, values, ["showFullscreenContent", "onOpen", "onClose"]);
+        hidePropertiesIn(defaultProperties, values, ["showFullscreenContent"]);
     } else {
         hidePropertiesIn(defaultProperties, values, [
             "nativeImplementation",
             "itemsBasic",
             "triggerAttribute",
-            "modalRendering"
+            "modalRendering",
+            "enableSwipeDown"
         ]);
         if (!values.showFullscreenContent) {
-            hidePropertyIn(defaultProperties, values, "fullscreenContent");
+            hidePropertiesIn(defaultProperties, values, ["fullscreenContent", "enableSwipeDown"]);
         }
     }
     return defaultProperties;

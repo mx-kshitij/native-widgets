@@ -1,6 +1,6 @@
 import { createElement, ReactElement, useCallback, useEffect, useRef, useState } from "react";
 import ActionSheet, { ActionSheetCustom } from "react-native-actionsheet";
-import { Platform, Text } from "react-native";
+import { Platform, Text, View } from "react-native";
 import { EditableValue, ValueStatus } from "mendix";
 import { ItemsBasicType } from "../../typings/BottomSheetProps";
 import { ModalItemContainerStyle, BottomSheetStyle, defaultMargins } from "../ui/Styles";
@@ -47,9 +47,11 @@ export const NativeBottomSheet = (props: NativeBottomSheetProps): ReactElement =
 
     if (Platform.OS === "android" || !props.useNative) {
         const options = props.itemsBasic.map((item, index) => (
-            <Text key={`${props.name}_item_${index}`} style={props.styles.modalItems[item.styleClass]}>
+            <View key={`${props.name}_item_${index}`}>
+                <Text style={props.styles.modalItems[item.styleClass]}>
                 {item.caption}
             </Text>
+</View>
         ));
 
         const buttonContainerStyle = { ...props.styles.modalItems?.container } as ModalItemContainerStyle;
