@@ -6431,7 +6431,7 @@ __metadata:
     "@types/react-native-modal": "npm:^4.1.1"
     eslint: "npm:^7.32.0"
     react-native-actionsheet: "npm:^2.4.2"
-    react-native-device-info: "npm:13.0.0"
+    react-native-device-info: "npm:8.7.1"
     react-native-modal: "npm:^13.0.1"
     react-native-reanimated: "npm:^1.0.1"
     reanimated-bottom-sheet: "npm:^1.0.0-alpha.19"
@@ -15462,6 +15462,15 @@ __metadata:
   peerDependencies:
     react-native: "*"
   checksum: 10/56cf41aa1d533d81b182973939cc3663285c7a6a93e6465b88feedefc1a7809a5d937f3588e145a445a1e0a74eda8242a46e1e67b33753909ad71e3e1216aeb1
+  languageName: node
+  linkType: hard
+
+"react-native-device-info@npm:8.7.1":
+  version: 8.7.1
+  resolution: "react-native-device-info@npm:8.7.1"
+  peerDependencies:
+    react-native: "*"
+  checksum: 10/de0fc179415f7ebf69805093e25600ac57ecae3d47d5abd4734d7eb76c6884fe67d1140c9aa7dd01deba7c5d0deeb524b993d350487d67a50059352b07740292
   languageName: node
   linkType: hard
 
