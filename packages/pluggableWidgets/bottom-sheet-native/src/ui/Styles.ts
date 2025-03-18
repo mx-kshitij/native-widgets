@@ -1,4 +1,4 @@
-import { TextStyle, ViewStyle, FlexAlignType } from "react-native";
+import { TextStyle, ViewStyle } from "react-native";
 import DeviceInfo from "react-native-device-info";
 
 export interface ModalItemsStyle {
@@ -18,6 +18,7 @@ export interface BottomSheetStyle {
     containerWhenExpandedFullscreen: ViewStyle;
     modal: ViewStyle;
     modalItems: ModalItemsStyle;
+    handleBar: ViewStyle;
 }
 
 const isiPhoneModelWithNotch = (): boolean => {
@@ -44,11 +45,11 @@ export const defaultPaddings = { paddingBottom: isiPhoneModelWithNotch() ? 24 : 
 export const defaultMargins = { marginBottom: isiPhoneModelWithNotch() ? 24 : 0 };
 
 
-export const handleBar = {
-    width: 40,
-    height: 5,
-    borderRadius: 2.5,
-    backgroundColor: "#ccc",
-    alignSelf: "center" as FlexAlignType,
-    marginVertical: 10
-};
+// export const handleBar = {
+//     width: 40,
+//     height: 5,
+//     borderRadius: 2.5,
+//     backgroundColor: "#ccc",
+//     alignSelf: "center" as FlexAlignType,
+//     marginVertical: 10
+// };

@@ -1,8 +1,23 @@
 import { createElement, ReactElement, ReactNode, useCallback, useEffect, useState } from "react";
-import { InteractionManager, LayoutChangeEvent, SafeAreaView, StyleSheet, View } from "react-native";
+import { InteractionManager, LayoutChangeEvent, SafeAreaView, ScrollView, StyleSheet, TouchableOpacity, View } from "react-native";
 import Modal, { OnSwipeCompleteParams } from "react-native-modal";
 import { EditableValue, ValueStatus } from "mendix";
-import { BottomSheetStyle, defaultPaddings, handleBar } from "../ui/Styles";
+import { BottomSheetStyle, defaultPaddings } from "../ui/Styles";
+
+const defaultStyle:BottomSheetStyle = {
+    handleBar: {
+        width: 40,
+        height: 5,
+        borderRadius: 2.5,
+        backgroundColor: "#ccc",
+        alignSelf: "center",
+        marginVertical: 10
+    },
+    container: {},
+    containerWhenExpandedFullscreen: {},
+    modal: {},
+    modalItems: {}
+};
 
 interface CustomModalSheetProps {
     triggerAttribute?: EditableValue<boolean>;
@@ -50,9 +65,6 @@ export const CustomModalSheet = (props: CustomModalSheetProps): ReactElement => 
         [props.triggerAttribute, props.enableSwipeDown]
     );
 
-    const preventBubbling = (event: any): void => {
-        event.stopPropagation();
-    };
 
     const onLayoutFullscreenHandler = (event: LayoutChangeEvent): void => {
         const height = event.nativeEvent.layout.height;
@@ -91,11 +103,15 @@ export const CustomModalSheet = (props: CustomModalSheetProps): ReactElement => 
                     defaultPaddings,
                     { maxHeight: height - Number(defaultPaddings.paddingBottom) }
                 ]}
-                onTouchEnd={preventBubbling}
-                pointerEvents="box-none"
             >
-                {props.enableSwipeDown && <View style={handleBar} />}
-                {props.content}
+                {props.enableSwipeDown && (
+                    <View style={[defaultStyle.handleBar, props.styles.handleBar]} />
+                )}
+                <ScrollView>
+                    <TouchableOpacity activeOpacity={1}>
+                        {props.content}
+                    </TouchableOpacity>
+                </ScrollView>
             </View>
         </Modal>
     );
